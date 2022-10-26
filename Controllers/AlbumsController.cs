@@ -6,11 +6,13 @@ public class AlbumsController : ControllerBase
 {
     private readonly Auth0Provider _auth0provider;
     private readonly AlbumsService _as;
+    private readonly PicturesService _ps;
 
-    public AlbumsController(Auth0Provider auth0provider, AlbumsService @as)
+    public AlbumsController(Auth0Provider auth0provider, AlbumsService @as, PicturesService ps)
     {
         _auth0provider = auth0provider;
         _as = @as;
+        _ps = ps;
     }
 
     [HttpGet]
@@ -35,6 +37,21 @@ public class AlbumsController : ControllerBase
         {
             Album foundAlbum = _as.GetById(albumId);
             return Ok(foundAlbum);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("{albumId}/pictures")]
+    [Authorize]
+    public ActionResult<List<Picture>> GetPicturesByAlbum(int albumId)
+    {
+        try
+        {
+            List<Picture> pictures = _ps.GetPicturesByAlbum(albumId);
+            return Ok(pictures);
         }
         catch (Exception e)
         {
