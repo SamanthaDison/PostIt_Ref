@@ -15,6 +15,8 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         title VARCHAR(255) NOT NULL,
         coverImg VARCHAR(255) NOT NULL,
+        archived TINYINT DEFAULT 0,
+        category VARCHAR(255) NOT NULL,
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY (creatorId) REFERENCES accounts(id)
     ) default charset utf8 COMMENT '';

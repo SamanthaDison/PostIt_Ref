@@ -11,5 +11,6 @@ public class Album : IRepoItem<int>, ICreated
     public Profile Creator { get; set; }
     public string Title { get; set; }
     public string CoverImg { get; set; }
-    public int MyProperty { get; set; }
+    public bool Archived { get; set; }
+    public string Category { get; set; }
 }
