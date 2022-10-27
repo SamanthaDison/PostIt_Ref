@@ -19,7 +19,7 @@ public class CollaboratorsService
         return _cr.GetCollabsByAlbum(albumId);
     }
 
-    internal List<Album> GetMyAlbums(string userId)
+    internal List<MyAlbum> GetMyAlbums(string userId)
     {
         return _cr.GetMyAlbums(userId);
     }

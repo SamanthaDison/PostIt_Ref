@@ -13,4 +13,11 @@ public class Album : IRepoItem<int>, ICreated
     public string CoverImg { get; set; }
     public bool Archived { get; set; }
     public string Category { get; set; }
+    public int MemberCount { get; set; }
+}
+
+public class MyAlbum : Album
+{
+    public int CollabId { get; set; }
+    public string AccountId { get; set; }
 }

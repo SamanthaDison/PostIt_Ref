@@ -32,12 +32,12 @@ public class AccountController : ControllerBase
 
     [HttpGet("collaborators")]
     [Authorize]
-    public async Task<ActionResult<List<Album>>> GetMyAlbums()
+    public async Task<ActionResult<List<MyAlbum>>> GetMyAlbums()
     {
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            List<Album> myAlbums = _cs.GetMyAlbums(userInfo.Id);
+            List<MyAlbum> myAlbums = _cs.GetMyAlbums(userInfo.Id);
             return Ok(myAlbums);
         }
         catch (Exception e)

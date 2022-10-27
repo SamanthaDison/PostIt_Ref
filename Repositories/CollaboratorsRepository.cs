@@ -39,19 +39,22 @@ public class CollaboratorsRepository
     }
 
 
-    internal List<Album> GetMyAlbums(string userId)
+    internal List<MyAlbum> GetMyAlbums(string userId)
     {
         string sql = @"
         SELECT
         alb.*,
+        am.id AS collabId,
         a.*
         FROM sdalbumMembers am
         JOIN sdalbums alb ON alb.id = am.albumId
         JOIN accounts a ON a.id = alb.creatorId
+
         WHERE am.accountId = @userId;";
-        return _db.Query<Album, Profile, Album>(sql, (album, profile) =>
+        return _db.Query<MyAlbum, Profile, MyAlbum>(sql, (album, profile) =>
         {
             album.Creator = profile;
+            album.AccountId = profile.Id;
             return album;
         }, new { userId }).ToList();
 

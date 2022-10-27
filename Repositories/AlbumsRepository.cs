@@ -13,9 +13,12 @@ public class AlbumsRepository
     {
         string sql = @"SELECT
       alb.*,
+      COUNT(am.id) AS MemberCount,
       a.*
       FROM sdalbums alb
-      JOIN accounts a on a.id = alb.creatorId;";
+      JOIN accounts a on a.id = alb.creatorId
+      LEFT JOIN sdalbumMembers am ON am.albumId = alb.id
+      GROUP BY alb.id;";
         return _db.Query<Album, Profile, Album>(sql, (album, profile) =>
         {
             album.Creator = profile;
