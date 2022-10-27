@@ -62,14 +62,14 @@ public class CollaboratorsRepository
         string sql = @"
         SELECT
         alb.*,
+       COUNT(am.id) AS MemberCount,
         am.id AS collabId,
-       
         a.*
         FROM sdalbumMembers am
         JOIN sdalbums alb ON alb.id = am.albumId
         JOIN accounts a ON a.id = alb.creatorId
-
-        WHERE am.accountId = @userId;";
+        WHERE am.accountId = @userId
+GROUP BY am.id;";
         return _db.Query<MyAlbum, Profile, MyAlbum>(sql, (album, profile) =>
         {
             album.Creator = profile;

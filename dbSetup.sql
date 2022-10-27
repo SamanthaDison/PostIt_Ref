@@ -50,9 +50,21 @@ drop table sdpictures;
 
 drop Table sdalbumMembers;
 
-SELECT alb.*, a.*
+/* SELECT alb.*, a.*
+ FROM sdalbumMembers am
+ JOIN sdalbums alb ON alb.id = am.albumId
+ JOIN accounts a ON a.id = alb.creatorId
+ WHERE
+ am.accountId = "633e0d3a8d26c334f3210264"; */
+
+SELECT
+    alb.*,
+    COUNT(am.id) AS MemberCount,
+    am.id AS collabId,
+    a.*
 FROM sdalbumMembers am
     JOIN sdalbums alb ON alb.id = am.albumId
     JOIN accounts a ON a.id = alb.creatorId
 WHERE
-    am.accountId = "633e0d3a8d26c334f3210264";
+    am.accountId = "633e0d3a8d26c334f3210264"
+GROUP BY am.id
