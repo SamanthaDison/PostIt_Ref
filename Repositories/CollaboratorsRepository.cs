@@ -20,6 +20,16 @@ public class CollaboratorsRepository
         return collabData;
     }
 
+    internal AlbumMember GetById(int collabId)
+    {
+        string sql = @"
+       SELECT
+       *
+       FROM sdalbumMembers
+       WHERE id = @collabId";
+        return _db.QueryFirstOrDefault<AlbumMember>(sql, new { collabId });
+    }
+
 
     internal List<Collaborator> GetCollabsByAlbum(int albumId)
     {
@@ -38,6 +48,14 @@ public class CollaboratorsRepository
         }, new { albumId }).ToList();
     }
 
+    internal void RemoveCollab(int collabId)
+    {
+        string sql = @"
+        DELETE FROM sdalbumMembers
+        WHERE id = @collabId
+        LIMIT 1;";
+        _db.Execute(sql, new { collabId });
+    }
 
     internal List<MyAlbum> GetMyAlbums(string userId)
     {
@@ -45,6 +63,7 @@ public class CollaboratorsRepository
         SELECT
         alb.*,
         am.id AS collabId,
+       
         a.*
         FROM sdalbumMembers am
         JOIN sdalbums alb ON alb.id = am.albumId

@@ -6,5 +6,5 @@ public class Collaborator : Profile
 {
     public int AlbumMemberId { get; set; }
     public int AlbumId { get; set; }
-    public string AccountId { get; set; }
+
 }

@@ -23,4 +23,19 @@ public class CollaboratorsService
     {
         return _cr.GetMyAlbums(userId);
     }
+
+    internal void RemoveCollab(int collabId, string userId)
+    {
+        AlbumMember foundCollab = _cr.GetById(collabId);
+        if (foundCollab == null)
+        {
+            throw new Exception("Album Member not found");
+        }
+        // TODO get album and check if user is album creator for checking auth
+        if (foundCollab.AccountId != userId)
+        {
+            throw new Exception("Unauthorized to remove collab");
+        }
+        _cr.RemoveCollab(collabId);
+    }
 }

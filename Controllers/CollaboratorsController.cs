@@ -31,4 +31,20 @@ public class CollaboratorsController : ControllerBase
         }
     }
 
+    [HttpDelete("{collabId}")]
+    [Authorize]
+    public async Task<ActionResult<string>> RemoveCollab(int collabId)
+    {
+        try
+        {
+            Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+            _cs.RemoveCollab(collabId, userInfo.Id);
+            return Ok("Collab removed successfully");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 }

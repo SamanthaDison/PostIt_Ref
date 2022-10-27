@@ -30,6 +30,7 @@ public class AlbumsService
     internal Album CreateAlbum(Album albumData)
     {
         return _ar.CreateAlbum(albumData);
+        // create albummember w new album and user...need to send userInfo here
     }
 
     internal void ArchiveAlbum(int albumId, string userId)
