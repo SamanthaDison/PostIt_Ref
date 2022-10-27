@@ -20,6 +20,7 @@ public class PicturesController : ControllerBase
         try
         {
             Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+            pictureData.CreatorId = userInfo.Id;
             Picture newPicture = _ps.CreatePicture(pictureData);
             newPicture.Creator = userInfo;
             return Ok(newPicture);

@@ -49,3 +49,10 @@ Drop table sdalbums;
 drop table sdpictures;
 
 drop Table sdalbumMembers;
+
+SELECT alb.*, a.*
+FROM sdalbumMembers am
+    JOIN sdalbums alb ON alb.id = am.albumId
+    JOIN accounts a ON a.id = alb.creatorId
+WHERE
+    am.accountId = "633e0d3a8d26c334f3210264";

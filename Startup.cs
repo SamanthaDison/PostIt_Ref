@@ -35,6 +35,10 @@ public class Startup
         services.AddScoped<AccountService>();
         services.AddTransient<AlbumsRepository>();
         services.AddTransient<AlbumsService>();
+        services.AddTransient<PicturesRepository>();
+        services.AddTransient<PicturesService>();
+        services.AddTransient<CollaboratorsRepository>();
+        services.AddTransient<CollaboratorsService>();
     }
 
     private void ConfigureCors(IServiceCollection services)
@@ -43,14 +47,14 @@ public class Startup
         {
             options.AddPolicy("CorsDevPolicy", builder =>
               {
-                    builder
-                  .AllowAnyMethod()
-                  .AllowAnyHeader()
-                  .AllowCredentials()
-                  .WithOrigins(new string[]{
+                  builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins(new string[]{
                 "http://localhost:8080", "http://localhost:8081"
-                });
-                });
+              });
+              });
         });
     }
 

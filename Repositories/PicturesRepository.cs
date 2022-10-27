@@ -13,7 +13,7 @@ public class PicturesRepository
     {
         string sql = @"
         INSERT INTO sdpictures(imgUrl, albumId, creatorId)
-        VALUES(@ImgUrl, @AlbumId, @CreatorId)
+        VALUES(@ImgUrl, @AlbumId, @CreatorId);
         SELECT LAST_INSERT_ID();";
         int id = _db.ExecuteScalar<int>(sql, pictureData);
         pictureData.Id = id;
@@ -28,7 +28,7 @@ public class PicturesRepository
         a.*
        FROM sdpictures p
        JOIN accounts a ON a.id = p.creatorId
-       WHERE p.albumdId = @albumId;";
+       WHERE p.albumId = @albumId;";
         return _db.Query<Picture, Profile, Picture>(sql, (picture, profile) =>
         {
             picture.Creator = profile;
